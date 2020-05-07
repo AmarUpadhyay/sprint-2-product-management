@@ -51,6 +51,14 @@ public class ProductDaoImpl implements ProductDao {
 		return query.getResultList();
 	}
 
+	@Override
+	public List<ProductDTO> grtProductByID(ProductDTO product) {
+		Session currentSession=sessionFactory.getCurrentSession();
+		Query<ProductDTO> query=currentSession.createQuery("from ProductDTO where product_id=:product_id",ProductDTO.class);
+		query.setParameter("product_id", product.getProduct_id());
+		return query.getResultList();
+	}
+
 	
 
 

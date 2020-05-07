@@ -10,5 +10,5 @@ public interface ProductService {
 	boolean deleteProduct(String productid) ;
 	boolean editProduct(ProductDTO product) ;
 	List<ProductDTO> viewAllProduct();
-	
+	public List<ProductDTO> getProductByID(ProductDTO product);
 }

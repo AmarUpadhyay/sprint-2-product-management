@@ -44,4 +44,10 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.viewAllProduct();
 	}
 
+	@Override
+	public List<ProductDTO> getProductByID(ProductDTO product) {
+		
+		return productDao.grtProductByID(product);
+	}
+
 }

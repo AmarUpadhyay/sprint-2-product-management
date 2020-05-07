@@ -6,5 +6,6 @@ public interface ProductDao {
 	boolean deleteProduct(String productid) ;
 	boolean editProduct(ProductDTO product) ;
 	List<ProductDTO> viewAllProduct() ; 
+	public List<ProductDTO> grtProductByID(ProductDTO product);
 	
 }
