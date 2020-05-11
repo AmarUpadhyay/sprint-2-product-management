@@ -6,9 +6,10 @@ import com.capgemini.go.dto.ProductDTO;
 
 
 public interface ProductService {
-	boolean addProduct(ProductDTO product)  ;
-	boolean deleteProduct(String productid) ;
-	boolean editProduct(ProductDTO product) ;
-	List<ProductDTO> viewAllProduct();
-	public List<ProductDTO> getProductByID(ProductDTO product);
+	public ProductDTO addProduct(ProductDTO product)  ;
+	public void deleteProduct(String productID) ;
+	public ProductDTO editProduct(ProductDTO product) ;
+	public List<ProductDTO> viewAllProduct();
+	public ProductDTO getProductByID(String productID);
+	public boolean isPresent(String productID);
 }

@@ -2,7 +2,6 @@ package com.capgemini.go.service;
 
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,35 +18,37 @@ public class ProductServiceImpl implements ProductService{
 	private ProductDao productDao;
 	
 	@Override
-	public boolean addProduct(ProductDTO product) {
+	public ProductDTO addProduct(ProductDTO product) {
 		
-		return productDao.addProduct(product);
+		return productDao.save(product);
 	}
 
 	@Override
-	public boolean deleteProduct(String productid) {
+	public void deleteProduct(String productID) {
 		
-			return productDao.deleteProduct(productid);
+			 productDao.deleteById(productID);
 	}
 
 	@Override
-	public boolean editProduct(ProductDTO product) {
-		
-		
-		
-			return productDao.editProduct(product);
+	public ProductDTO editProduct(ProductDTO product) {
+		return productDao.save(product);
 	}
 
 	@Override
 	public List<ProductDTO> viewAllProduct()  {
 		
-		return productDao.viewAllProduct();
+		return productDao.findAll();
 	}
 
 	@Override
-	public List<ProductDTO> getProductByID(ProductDTO product) {
+	public ProductDTO getProductByID(String productID) {
 		
-		return productDao.grtProductByID(product);
+		return productDao.findById(productID).get();
+	}
+	
+	public boolean isPresent(String productID) {
+		
+		return productDao.existsById(productID);
 	}
 
 }
