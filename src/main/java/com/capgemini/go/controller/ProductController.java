@@ -1,5 +1,6 @@
 package com.capgemini.go.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.go.dto.ProductDTO;
 import com.capgemini.go.exception.ProductNotFoundException;
 import com.capgemini.go.service.ProductService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 
 @RestController
@@ -33,12 +35,16 @@ public class ProductController {
 	private ProductService productService;
 	
 	@GetMapping("/product-list")
+	@HystrixCommand(fallbackMethod="getFallBackProduct")
 	public ResponseEntity<List<ProductDTO>> getAllProduct()  {
 		  log.info("Fetching the product list...");
 		 List<ProductDTO> productList=productService.viewAllProduct();
 		 return new ResponseEntity<List<ProductDTO>>(productList,new HttpHeaders(),HttpStatus.OK);
 	}
-	
+	public ResponseEntity<List<ProductDTO>> getFallBackProduct(){
+		return new ResponseEntity<List<ProductDTO>>(Arrays.asList(new ProductDTO("products not available", 0.0, null, null, null,
+				null, 0, null, null)), HttpStatus.NOT_FOUND);
+	}
 	
 	@PostMapping("/add-product")
 	public ResponseEntity<ProductDTO> addProduct(@Valid @RequestBody ProductDTO product)  {
